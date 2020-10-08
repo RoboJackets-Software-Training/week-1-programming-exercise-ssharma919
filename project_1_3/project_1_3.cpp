@@ -37,8 +37,28 @@ int main() {
 
   // TODO write your code here
   // =========== START =========
+  int packing_size = (w.size() - 1) / 2;
+  for (int i = 0; i < x.size(); i++) {
+  	double output_value = 0;
+  	for (int j = 0; j < w.size(); j++) {
+	  	if (i + j - packing_size >= 0 && i + j - packing_size < x.size()) {
+	  		output_value += x[i + j - packing_size] * w[j];
+	  	}
+	  	else if (!pack_with_zeros && i + j - packing_size < 0) {
+	  		output_value += x[0] * w[j];
+	  	}
+	  	else if (!pack_with_zeros && i + j - packing_size >= x.size()) {
+	  		output_value += x[x.size() - 1] * w[j];
+	  	}
+  	}
+  	y.push_back(output_value);
+  }
 
-
+  std::cout << "{" << y[0];
+  for(int i = 1; i < y.size(); i++) {
+    std::cout << ", " << y[i];
+  }
+  std::cout << "}" << std::endl;
 
 
   // =========== END ===========
